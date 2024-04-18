@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <header>
+        <h2 style="font-size:36px; padding:10px;">Smart cart</h2>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <br>
+    <div class="cardi">
+        <h1>Smart cart</h1>
+        <h1>Webcam Capture</h1>
+    <div id="video-container">
+        <video id="video" autoplay></video>
+    </div>
+    <a id="capture-button" download="captured_image.jpg">Capture Image</a>
+
+    <script>
+        // JavaScript for capturing image from webcam
+        const video = document.getElementById('video');
+        const captureButton = document.getElementById('capture-button');
+        const capturedImage = document.getElementById('captured-image');
+
+        // Function to start the webcam
+        async function startWebcam() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        // Event listener for capture button click
+        captureButton.addEventListener('click', captureImage);
+
+        // Start webcam when the page loads
+        startWebcam();
+
+        // Function to capture image from webcam and trigger download
+        function captureImage() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const image = canvas.toDataURL('image/jpeg');
+           
+            // Set captured image as the href of the capture button
+            captureButton.href = image
+            
+            capturedImage.src = image;
+        }
+    
+</script>
+        <form action="/upload" method="POST" enctype="multipart/form-data"><br>
+            <p style="font-size:20px; font-weight:bold;">Upload an image for recognition:</p><br>
+            <div class="fromm">
+                <div class="custom-file-upload">
+                    <label for="file">Choose a File</label>
+                    <input type="file" id="file" name="file" accept="image/*">
+                </div>
+               
+                <input type="submit" value="Add to Cart" class="bold-text">
+            </div>
+        </form>
+    </div>
+    <h3>Selected Items</h3>
+    <div id="result">
+        <!-- Recognition results will be displayed here -->
+    </div>
+    <div id="cart">
+        <!-- Cart section to display items added to the cart -->
+        <h3>Shopping Cart</h3>
+        <ul id="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </ul>
+        <div id="cart-total">
+            <!-- Display total amount here -->
+        </div>
+        <button class="navigate" onclick="navigateToPayment()">Proceed to Payment</button>
+    </div>
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+    
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = ''; // Clear previous results
+                if (data.error) {
+                    resultDiv.innerText = 'Error: ' + data.error;
+                } else {
+                    // Generate the product card and display it in the resultDiv
+                    resultDiv.innerHTML = generateProductCard(data);
+    
+                    // Add the product to the cart
+                    addToCart(data);
+                }
+            })
+            .catch(error => {
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerText = 'Error: ' + error.message;
+            });
+        });
+    
+        function addToCart(data) {
+            var cartItems = document.getElementById('cart-items');
+            var listItem = document.createElement('li');
+    
+            // Generate the product card and append it to the cartItems
+            listItem.innerHTML = generateProductCard(data);
+            cartItems.appendChild(listItem);
+        }
+    
+        // Function to generate the HTML structure for the product card
+        function generateProductCard(data) {
+            return `
+                <div class="card1">
+                    <div class="card-content">
+                        <img src="${data["Image URL"]}" alt="Product Image">
+                        <div class="card-info">
+                            ${Object.entries(data)
+                                .filter(([key]) => key !== "Image URL" && key !== "Stock Availability")
+                                .map(([key, value]) => `<p><strong>${key}:</strong> ${value}</p>`)
+                                .join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        function navigateToPayment() {
+            // Fetch the items in the cart from the server
+            fetch('/get_cart_items')
+                .then(response => response.json())
+                .then(data => {
+                    var cartItems = data['cart_items'];
+        
+                    // Remove dollar signs and spaces from item prices
+                    cartItems.forEach(item => {
+                        item['Price'] = parseFloat(item['Price'].replace('$', '').trim());
+                    });
+        
+                    var totalAmount = cartItems.reduce((total, item) => total + item['Price'], 0);
+        
+                    // Redirect to the payment page with cart items and total amount as parameters
+                    var paymentUrl = `/payment?cartItems=${JSON.stringify(cartItems)}&totalAmount=${totalAmount}`;
+                    window.location.href = paymentUrl;
+                })
+                .catch(error => {
+                    console.error('Error fetching cart items:', error);
+                });
+        }
+    </script>
+</body>
+</html>

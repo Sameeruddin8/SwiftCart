@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='payment.css') }}">
+</head>
+<body>
+    <h2>Payment Details</h2>
+    <div id="payment-details">
+        <!-- Payment details will be displayed here -->
+    </div>
+    <script>
+        // Retrieve cart items and total amount from template variables
+        var cartItems = {{ cart_items|tojson|safe }};
+        var totalAmount = {{ total_amount|tojson|safe }};
+
+        // Display payment details
+        var paymentDetailsDiv = document.getElementById('payment-details');
+        paymentDetailsDiv.innerHTML = '<h3>Cart Items:</h3>';
+        for (var i = 0; i < cartItems.length; i++) {
+            var itemName = cartItems[i]['Product Name'];
+            var itemPrice = cartItems[i]['Price'];
+            var imageUrl = cartItems[i]['Image URL'];
+            
+            // Display item information
+            paymentDetailsDiv.innerHTML += `
+                <div class="list">
+                    <p>${i+1}.<p>
+                    <img src="${imageUrl}" alt="${itemName}" style="width: 50px; height: 50px;">
+                    <p>${itemName}</p>
+                    <p>${itemPrice}</p>
+                </div>
+            `;
+        }
+        // Display total amount
+        paymentDetailsDiv.innerHTML += `<h3>Total Amount: <span style="color:#80ffa6;">$</span>${totalAmount.toFixed(2)}</h3>`;
+
+        // Generate QR code
+    </script>
+</body>
+</html>
