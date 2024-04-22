@@ -35,7 +35,13 @@ def index():
 def upload_file():
     data = request.json
     image_data = data.get('image')
-    image_bytes = base64.b64decode(image_data.split(',')[1])
+    if not image_data:
+        return jsonify({'error': 'No image data received'}), 400
+
+    try:
+        image_bytes = base64.b64decode(image_data.split(',')[1])
+    except (IndexError, ValueError):
+        return jsonify({'error': 'Invalid image data'}), 400
 
     index = model_prediction(image_bytes)
 
@@ -44,7 +50,7 @@ def upload_file():
         stock_availability = product_info['Stock Availability']
         if stock_availability > 0:
             availability = 'In Stock'
-            product_info['Stock Availability'] -= 1  
+            product_info['Stock Availability'] -= 1
             cart_items.append({
                 'Product Name': product_info['name'],
                 'Price': product_info['Price'],
@@ -56,10 +62,9 @@ def upload_file():
                 'Product ID': product_info['Product ID']
             })
         else:
-            return jsonify({'error': 'Product out of stock'})
+            return jsonify({'error': 'Product out of stock'}), 200
     else:
-        return jsonify({'error': 'Product not found'})
-
+        return jsonify({'error': 'Product not found'}), 200
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):

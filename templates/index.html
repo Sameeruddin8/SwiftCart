@@ -67,30 +67,34 @@
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const imageData = canvas.toDataURL('image/jpeg');
 
-            fetch('/upload', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ image: imageData })
-            })
-            .then(response => response.json())
-            .then(data => {
-                var resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = '';
-                if (data.error) {
-                    resultDiv.innerText = 'Error: ' + data.error;
-                } else {
-                    resultDiv.innerHTML = generateProductCard(data);
-                    addToCart(data);
-                }
-            })
-            .catch(error => {
-                var resultDiv = document.getElementById('result');
-                resultDiv.innerText = 'Error: ' + error.message;
-            });
-        }
-	function addToCart(data) {
+        fetch('/upload', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ image: imageData })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+            if (data.error) {
+                resultDiv.innerText = 'Error: ' + data.error;
+            } else {
+            resultDiv.innerHTML = generateProductCard(data);
+            addToCart(data);
+            }
+        })
+        .catch(error => {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerText = 'Error: ' + error.message;
+        });}
+	    function addToCart(data) {
             var cartItems = document.getElementById('cart-items');
             var listItem = document.createElement('li');
             listItem.innerHTML = generateProductCard(data);
