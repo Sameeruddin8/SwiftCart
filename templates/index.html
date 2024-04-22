@@ -47,12 +47,17 @@
 
         // Function to start the webcam
         async function startWebcam() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                video.srcObject = stream;
-            } catch (error) {
-                console.error('Error accessing webcam:', error);
-            }
+        try {
+            const constraints = {
+                video: {
+                    facingMode: 'environment' // Use 'environment' for the back camera
+                }
+            }   ;
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            video.srcObject = stream;
+        } catch (error) {
+            console.error('Error accessing webcam:', error);
+        }
         }
 
         startWebcam();
