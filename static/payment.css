@@ -4,12 +4,20 @@ body {
     background-image: linear-gradient(to right, #000000 0%, #04619f 74%);
     /* Remove or modify the background-size property */
     background-size: cover; 
-    font-family: Pacifico;
+    font-family: Arial, sans-serif;
     text-align: center;
     font-size: x-large;
     color: #ffffff;
 }
-
+.item{
+    display:flex;
+width:100%;
+justify-content:space-around;
+margin-left:-80px;
+}
+.item-details{
+    margin: 17px 0 0 -175px;
+}
 .list{
     background-color: #ffffff;
     display: flex;

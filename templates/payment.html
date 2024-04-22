@@ -20,15 +20,19 @@
         for (var i = 0; i < cartItems.length; i++) {
             var itemName = cartItems[i]['Product Name'];
             var itemPrice = cartItems[i]['Price'];
-            var imageUrl = cartItems[i]['Image URL'];
+            var imageUrl = '/static/images/' + itemName + '.jpg';
+            
             
             // Display item information
             paymentDetailsDiv.innerHTML += `
-                <div class="list">
-                    <p>${i+1}.<p>
-                    <img src="${imageUrl}" alt="${itemName}" style="width: 50px; height: 50px;">
-                    <p>${itemName}</p>
-                    <p>${itemPrice}</p>
+            <div class="list">
+                    <div class="item">
+                        <img src="${imageUrl}" alt="${itemName}" style = "width:100px; height: 100px; margin-right : 150px;margin-top: 10px" >
+                        <div class="item-details">
+                            <p>${itemName}</p>
+                            <p>${itemPrice}</p>
+                        </div>
+                    </div>
                 </div>
             `;
         }
