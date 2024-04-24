@@ -4,6 +4,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import os
+from PIL import Image
 from io import BytesIO
 
 app = Flask(__name__)
@@ -19,12 +20,13 @@ if not os.path.exists(UPLOAD_FOLDER):
 def get_product_info(index):
     product_info = df.iloc[index].to_dict()
     return product_info
-
 def model_prediction(image_bytes):
     model = tf.keras.models.load_model("trained_model.h5")
-    image = tf.keras.preprocessing.image.load_img(BytesIO(image_bytes), target_size=(64, 64))
+    image = Image.open(BytesIO(image_bytes)).convert('L')  # Convert image to grayscale
+    image = image.resize((48, 48))  # Resize image to match model input size
     input_arr = tf.keras.preprocessing.image.img_to_array(image)
-    input_arr = np.array([input_arr]) 
+    input_arr = np.expand_dims(input_arr, axis=-1)  # Add channel dimension
+    input_arr = np.expand_dims(input_arr, axis=0)  # Add batch dimension
     predictions = model.predict(input_arr)
     return np.argmax(predictions)
 cart_items = []

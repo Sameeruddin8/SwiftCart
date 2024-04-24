@@ -1,37 +1,5 @@
 ,name,Product ID,Category,Price,Unit of Measure,Description,,Stock Availability,Discount,Origin
 0,apple,APL001,Fruits,$1.00 ,Each,Fresh and juicy apples,,100,$0.00 ,USA
 1,banana,BAN001,Fruits,$0.50 ,Each,Ripe and yellow bananas,,150,$0.00 ,Mexico
-2,beetroot,BTR001,Vegetables,$1.20 ,Each,Fresh beetroot with tops,,80,$0.00 ,Local
-3,bell pepper,BPP001,Vegetables,$1.50 ,Each,"Assorted bell peppers (red, yellow, green)",,70,$0.00 ,Local
-4,cabbage,CAB001,Vegetables,$0.80 ,Each,Fresh green cabbage,,0,$0.00 ,Local
-5,capsicum,CAP001,Vegetables,$1.20 ,Each,Green bell pepper,,50,$0.00 ,Local
-6,carrot,CAR001,Vegetables,$0.60 ,Each,Fresh carrots,,0,$0.00 ,Local
-7,cauliflower,CAF001,Vegetables,$1.20 ,Each,Fresh cauliflower,,60,$0.00 ,Local
-8,chilli pepper,CHP001,Vegetables,$0.80 ,Each,Fresh red chilli pepper,,40,$0.00 ,Local
-9,corn,CRN001,Vegetables,$0.90 ,Each,Sweet corn on the cob,,70,$0.00 ,Local
-10,cucumber,CUC001,Vegetables,$0.70 ,Each,Fresh green cucumber,,90,$0.00 ,Local
-11,eggplant,EGP001,Vegetables,$1.00 ,Each,Purple eggplant,,60,$0.00 ,Local
-12,garlic,GRL001,Vegetables,$0.30 ,Each,Fresh garlic bulbs,,100,$0.00 ,Local
-13,ginger,GIN001,Vegetables,$0.50 ,Each,Fresh ginger root,,80,$0.00 ,Local
-14,grapes,GRP001,Fruits,$2.00 ,Each,Red and green grapes,,40,$0.00 ,USA
-15,jalepeno,JAL001,Vegetables,$0.70 ,Each,Fresh jalapeño peppers,,60,$0.00 ,Mexico
-16,kiwi,KIW001,Fruits,$1.50 ,Each,Ripe and sweet kiwi,,50,$0.00 ,New Zealand
-17,lemon,LEM001,Fruits,$0.60 ,Each,Fresh and tangy lemons,,70,$0.00 ,Local
-18,lettuce,LET001,Vegetables,$0.90 ,Each,Crisp and green lettuce,,80,$0.00 ,Local
-19,mango,MAN001,Fruits,$1.20 ,Each,Ripe and sweet mangoes,,60,$0.00 ,India
-20,onion,ONI001,Vegetables,$0.50 ,Each,Fresh onions,,90,$0.00 ,Local
-21,orange,ORA001,Fruits,$0.80 ,Each,Sweet and juicy oranges,,80,$0.00 ,USA
-22,paprika,PAP001,Vegetables,$1.00 ,Each,Red paprika peppers,,60,$0.00 ,Local
-23,pear,PEA001,Fruits,$1.00 ,Each,Juicy pears,,100,$0.00 ,USA
-24,peas,PEA001,Vegetables,$0.80 ,Each,Fresh green peas,,70,$0.00 ,Local
-25,pineapple,PIN001,Fruits,$1.50 ,Each,Ripe and delicious pineapples,,50,$0.00 ,Hawaii
-26,pomegranate,POM001,Fruits,$1.30 ,Each,Sweet and nutritious pomegranates,,60,$0.00 ,Local
-27,potato,POT001,Vegetables,$0.40 ,Each,Fresh and versatile potatoes,,120,$0.00 ,Local
-28,raddish,RAD001,Vegetables,$0.70 ,Each,Crunchy red radishes,,80,$0.00 ,Local
-29,soy beans,SOY001,Vegetables,$1.20 ,Each,Fresh soybean pods,,70,$0.00 ,Local
-30,spinach,SPN001,Vegetables,$0.90 ,Each,Nutrient-rich spinach leaves,,90,$0.00 ,Local
-31,sweetcorn,SWC001,Vegetables,$0.90 ,Each,Fresh sweetcorn,,60,$0.00 ,Local
-32,sweetpotato,SPT001,Vegetables,$1.20 ,Each,Fresh sweet potatoes,,0,$0.00 ,Local
-33,tomato,TMT001,Vegetables,$1.00 ,Each,Ripe and red tomatoes,,120,$0.00 ,Local
-34,turnip,TUR001,Vegetables,$0.80 ,Each,Fresh turnips with greens,,60,$0.00 ,Local
-35,watermelon,WM001,Fruits,$2.50 ,Each,Large and juicy watermelons,,40,$0.00 ,Local
+2,mango,MAN001,Fruits,$1.20 ,Each,Ripe and sweet mangoes,,60,$0.00 ,India
+3,watermelon,WM001,Fruits,$2.50 ,Each,Large and juicy watermelons,,40,$0.00 ,Local
