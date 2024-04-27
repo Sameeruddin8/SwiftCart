@@ -1,5 +1,0 @@
-,name,Product ID,Category,Price,Unit of Measure,Description,,Stock Availability,Discount,Origin
-0,apple,APL001,Fruits,$1.00 ,Each,Fresh and juicy apples,,100,$0.00 ,USA
-1,banana,BAN001,Fruits,$0.50 ,Each,Ripe and yellow bananas,,150,$0.00 ,Mexico
-2,mango,MAN001,Fruits,$1.20 ,Each,Ripe and sweet mangoes,,60,$0.00 ,India
-3,watermelon,WM001,Fruits,$2.50 ,Each,Large and juicy watermelons,,40,$0.00 ,Local
