@@ -1,11 +1,11 @@
 ,name,Product ID,Category,Price,Unit of Measure,Description,,Stock Availability,Discount,Origin
 0,apple,APL001,Fruits,120,Each,Fresh and juicy apples,,100,0,USA
 1,banana,BAN001,Fruits,80,Each,Fresh and juicy apples,,150,0,Mexico
-2,mango,MAN001,Fruits,80,Each,Fresh and juicy apples,,60,0,India
-3,watermelon,WM001,Fruits,100,Each,Fresh and juicy apples,,40,0,Local
+2,bingo,BIG001,Fruits,30,Each,Fresh and juicy apples,,12,0,Local
+3,cadbury,CAD001,Fruits,30,Each,Fresh and juicy apples,,12,0,Local
 4,coke,COK001,Fruits,40,Each,Fresh and juicy apples,,12,0,Local
-5,bingo,BIG001,Fruits,30,Each,Fresh and juicy apples,,12,0,Local
-6,cadbury,CAD001,Fruits,30,Each,Fresh and juicy apples,,12,0,Local
-7,dark fantasy,DAR001,Fruits,35,Each,Fresh and juicy apples,,12,0,Local
-8,kurkure,KUR001,Fruits,20,Each,Fresh and juicy apples,,12,0,Local
-9,lays,LAY001,Fruits,20,Each,Fresh and juicy apples,,12,0,Local
+5,dark fantasy,DAR001,Fruits,35,Each,Fresh and juicy apples,,12,0,Local
+6,kurkure,KUR001,Fruits,20,Each,Fresh and juicy apples,,12,0,Local
+7,lays,LAY001,Fruits,20,Each,Fresh and juicy apples,,12,0,Local
+8,mango,MAN001,Frutis,20,Each,Fresh and juicy apples,,12,0,Local
+9,watermelon,WAT001,Frutis,20,Each,Fresh and juicy apples,,12,0,Local
