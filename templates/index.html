@@ -132,7 +132,7 @@
                 .then(data => {
                     var cartItems = data['cart_items'];
                     cartItems.forEach(item => {
-                        item['Price'] = item['Price']
+                        item['Price'] = parseFloat(item['Price']);
                     });
         
                     var totalAmount = cartItems.reduce((total, item) => total + item['Price'], 0);

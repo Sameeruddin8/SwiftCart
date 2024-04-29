@@ -4,9 +4,7 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import os
-from ultralytics import YOLO
 from PIL import Image
-import tempfile
 from io import BytesIO
 
 app = Flask(__name__)
@@ -23,21 +21,14 @@ def get_product_info(index):
     product_info = df.iloc[index].to_dict()
     return product_info
 def model_prediction(image_bytes):
-    model = YOLO('./runs/classify/train/weights/last.pt')  # load a custom model
-
-    # Create a temporary file from the image bytes
-    with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as temp_file:
-        temp_file.write(image_bytes)
-        temp_file_path = temp_file.name
-
-    # Use the temporary file path with the YOLO model
-    results = model(temp_file_path)
-    os.remove(temp_file_path)  # Remove the temporary file
-
-    names_dict = results[0].names
-    probs = results[0].probs.data.tolist()
-
-    return np.argmax(probs)
+    model = tf.keras.models.load_model("trained_model.h5")
+    image = Image.open(BytesIO(image_bytes)).convert('L')  # Convert image to grayscale
+    image = image.resize((48, 48))  # Resize image to match model input size
+    input_arr = tf.keras.preprocessing.image.img_to_array(image)
+    input_arr = np.expand_dims(input_arr, axis=-1)  # Add channel dimension
+    input_arr = np.expand_dims(input_arr, axis=0)  # Add batch dimension
+    predictions = model.predict(input_arr)
+    return np.argmax(predictions)
 cart_items = []
 @app.route('/')
 def index():
@@ -88,10 +79,9 @@ def get_cart_items():
 
 @app.route('/payment')
 def payment():
-    total_amount = sum(float(item['Price']) for item in cart_items)
+    total_amount = sum(float(item['Price'].replace('$', '').strip()) for item in cart_items)
     return render_template('payment.html', cart_items=cart_items, total_amount=total_amount)
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(debug=True)
