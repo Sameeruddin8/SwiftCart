@@ -6,6 +6,8 @@ import pandas as pd
 import os
 from PIL import Image
 from io import BytesIO
+import tempfile
+from ultralytics import YOLO
 
 app = Flask(__name__)
 
@@ -21,14 +23,21 @@ def get_product_info(index):
     product_info = df.iloc[index].to_dict()
     return product_info
 def model_prediction(image_bytes):
-    model = tf.keras.models.load_model("trained_model.h5")
-    image = Image.open(BytesIO(image_bytes)).convert('L')  # Convert image to grayscale
-    image = image.resize((48, 48))  # Resize image to match model input size
-    input_arr = tf.keras.preprocessing.image.img_to_array(image)
-    input_arr = np.expand_dims(input_arr, axis=-1)  # Add channel dimension
-    input_arr = np.expand_dims(input_arr, axis=0)  # Add batch dimension
-    predictions = model.predict(input_arr)
-    return np.argmax(predictions)
+    model = YOLO('./runs/classify/train/weights/last.pt')  # load a custom model
+
+    # Create a temporary file from the image bytes
+    with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as temp_file:
+        temp_file.write(image_bytes)
+        temp_file_path = temp_file.name
+
+    # Use the temporary file path with the YOLO model
+    results = model(temp_file_path)
+    os.remove(temp_file_path)  # Remove the temporary file
+
+    names_dict = results[0].names
+    probs = results[0].probs.data.tolist()
+
+    return np.argmax(probs)
 cart_items = []
 @app.route('/')
 def index():
