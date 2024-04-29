@@ -79,9 +79,10 @@ def get_cart_items():
 
 @app.route('/payment')
 def payment():
-    total_amount = sum(float(item['Price'].replace('$', '').strip()) for item in cart_items)
+    total_amount = sum(float(item['Price']) for item in cart_items)
     return render_template('payment.html', cart_items=cart_items, total_amount=total_amount)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
