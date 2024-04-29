@@ -4,10 +4,10 @@ import tensorflow as tf
 import numpy as np
 import pandas as pd
 import os
-from PIL import Image
-from io import BytesIO
-import tempfile
 from ultralytics import YOLO
+from PIL import Image
+import tempfile
+from io import BytesIO
 
 app = Flask(__name__)
 
@@ -88,7 +88,7 @@ def get_cart_items():
 
 @app.route('/payment')
 def payment():
-    total_amount = sum(float(item['Price'].replace('$', '').strip()) for item in cart_items)
+    total_amount = sum(float(item['Price']) for item in cart_items)
     return render_template('payment.html', cart_items=cart_items, total_amount=total_amount)
 
 
